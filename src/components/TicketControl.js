@@ -48,6 +48,7 @@ class TicketControl extends React.Component {
     }
   }
 
+
 render(){
     let currentlyVisibleState = this.setVisibility();
     let buttonText = null;
@@ -69,6 +70,25 @@ render(){
 }
   
 export default TicketControl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // render(){

@@ -3,19 +3,37 @@ import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import Question from "./Question.js";
 import PropTypes from "prop-types";
+import TicketControl from "./TicketControl.js";
 
 class QuestionControl extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      listVisible: false,
       formVisibleOnPage: false,
       questionVisible: 1,
     };
       this.formViewClick = this.formViewClick.bind(this); 
+  }
+    listViewClick() {      //ticket 
+    let listVisible;
+    switch(this.state.listVisible) {
+      case(true):
+        listVisible = false;
+        break;
+      case(false):
+        listVisible = true;
+        break;
+      default:
+        listVisible = this.state.listVisible;
+        break;
     }
+    
+    this.setState({ listVisible });
+  }
   
-  formViewClick() {
+  formViewClick() {       //question
     let formVisibleOnPage;
     switch(this.state.formVisibleOnPage) {
       case(true):
@@ -37,7 +55,7 @@ class QuestionControl extends React.Component {
     }));
   };
 
-  displayQuestion = () => {
+  displayQuestion = () => {        //question
     if (this.state.questionVisible === 1) {
       return {
         questionText: "Have you gone through all the steps on the Learn How to Program debugging lesson?",
@@ -57,12 +75,14 @@ class QuestionControl extends React.Component {
   }
 
   setVisibility = () => {
-    if (this.state.formVisibleOnPage) {
+
+      if (this.state.formVisibleOnPage) {
       return {
         component: (
-          <NewTicketForm
-            onNewTicketFormSubmission={this.props.onNewTicketFormSubmission}
-          />
+          // <NewTicketForm
+          //   onNewTicketFormSubmission={this.props.onNewTicketFormSubmission}
+          // />
+          <TicketControl listVisible ={ this.state.listVisible}/>
         ),
       };
     } else {
