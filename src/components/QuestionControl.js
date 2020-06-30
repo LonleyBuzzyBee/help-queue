@@ -61,7 +61,7 @@ class QuestionControl extends React.Component {
       return {
         component: (
           <NewTicketForm
-            // onNewTicketFormSubmission={this.props.onNewTicketFormSubmission}
+            onNewTicketFormSubmission={this.props.onNewTicketFormSubmission}
           />
         ),
       };
@@ -81,7 +81,14 @@ class QuestionControl extends React.Component {
 
   render() {
     let currentVis = this.setVisibility();
-    return <React.Fragment>{currentVis.component}</React.Fragment>;
+    return <React.Fragment>
+      {currentVis.component}
+      </React.Fragment>;
     }
   }  
+
+  QuestionControl.propTypes = {
+    onNewTicketFormSubmission: PropTypes.func,
+  };
+
 export default QuestionControl;

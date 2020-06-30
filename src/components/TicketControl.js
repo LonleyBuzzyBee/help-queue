@@ -3,50 +3,65 @@ import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import Question from "./Question.js";
 import PropTypes from "prop-types";
+import QuestionControl from './QuestionControl';
 
 class TicketControl extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: true,
+      listVisible: false,
     };
-    this.formViewClick = this.formViewClick.bind(this); 
+    this.listViewClick = this.listViewClick.bind(this); 
   }
 
-  formViewClick() {
-    let formVisibleOnPage;
-    switch(this.state.formVisibleOnPage) {
+  listViewClick() {
+    let listVisible;
+    switch(this.state.listVisible) {
       case(true):
-        formVisibleOnPage = false;
+        listVisible = false;
         break;
       case(false):
-        formVisibleOnPage = true;
+        listVisible = true;
         break;
       default:
-        formVisibleOnPage = this.state.formVisibleOnPage;
+        listVisible = this.state.listVisible;
         break;
     }
     
-    this.setState({ formVisibleOnPage });
+    this.setState({ listVisible });
   }
 
-setVisibility = () => [
-  
-]
-
-  
+  setVisibility = () => {
+    if (this.state.listVisible) {
+      return {
+        component: (
+          <TicketList/>
+        ),
+      };
+    } else {
+      return{
+      component: (
+        <QuestionControl />
+        ),
+      }
+    }
+  }
 
 render(){
     let currentlyVisibleState = this.setVisibility();
-    if (this.state.formVisibleOnPage) {
+    let buttonText = null;
+    if (!this.state.listVisible) {
       currentlyVisibleState = <NewTicketForm />
+      buttonText = "Return to Ticket List";
     } else {
       currentlyVisibleState = <TicketList />
+      buttonText = "Add Ticket"; 
     }
     return (
       <React.Fragment>
         {currentlyVisibleState}
+        <button onClick={this.listViewClick}>{buttonText}</button> 
       </React.Fragment>
     );
   }
@@ -54,7 +69,6 @@ render(){
 }
   
 export default TicketControl;
-
 
 
 // render(){
